@@ -15,7 +15,7 @@ const LoginPage = () => {
 
   const validate = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/auth/check-time`);
+      const response = await axios.get(`${apiUrl}/auth/check-time`);
       const serverTime = new Date(response.data.serverTime);
       const clientTime = new Date();
 

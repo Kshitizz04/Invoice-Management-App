@@ -35,7 +35,7 @@ const UpdateInvoice = ({setInvoices, invoices, invoiceNumber, force, setForce})=
   const handleUpdateInvoice = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.put(`${apiUrl}/api/invoices/update/${invoiceNumber}`, updateInvoice);
+        const response = await axios.put(`${apiUrl}/invoices/update/${invoiceNumber}`, updateInvoice);
         setInvoices((prevState)=>
             prevState.map((invoice)=>
                 invoice.invoiceNumber === invoiceNumber ? response.data : invoice

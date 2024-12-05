@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   const fetchInvoices = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/invoices`);
+      const response = await axios.get(`${apiUrl}/invoices`);
       setInvoices(response.data);
     } catch (error) {
       console.error('Error fetching invoices:', error);
@@ -63,7 +63,7 @@ const Dashboard = () => {
   const applyFilters = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}/api/invoices/filter`, filters);
+      const response = await axios.post(`${apiUrl}/invoices/filter`, filters);
       setInvoices(response.data);
     } catch (error) {
       console.error('Error applying filters:', error);
@@ -73,7 +73,7 @@ const Dashboard = () => {
   const handleDeleteInvoice = async (id) => {
     console.log(id)
     try {
-      await axios.delete(`${apiUrl}/api/invoices/delete/${id}`);
+      await axios.delete(`${apiUrl}/invoices/delete/${id}`);
       setInvoices(invoices.filter(invoice => invoice.invoiceNumber !== id));
     } catch (err) {
       console.error('Failed to delete invoice.');

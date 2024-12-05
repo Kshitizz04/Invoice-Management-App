@@ -37,7 +37,7 @@ const AddInvoice = ({setInvoices, invoices})=> {
   const handleAddInvoice = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}/api/invoices/create`, newInvoice);
+      const response = await axios.post(`${apiUrl}/invoices/create`, newInvoice);
       setInvoices([...invoices,response.data]);
       setNewInvoice({ invoiceDate: '', invoiceNumber: '', invoiceAmount: '' });
       setOpen(false);
