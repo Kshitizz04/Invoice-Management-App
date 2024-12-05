@@ -77,12 +77,12 @@ invoice-management/
 
 | Method | Endpoint                          | Description                                   | Request Body Example                                                                 |
 |--------|-----------------------------------|-----------------------------------------------|--------------------------------------------------------------------------------------|
-| POST   | `/api/invoices/create`             | Create a new invoice.                         | `{ "invoiceNumber": "INV001", "invoiceDate": "2024-12-01", "invoiceAmount": 1500, "financialYear": "2024-2025" }` |
-| PUT    | `/api/invoices/:id`                | Update an existing invoice by ID.             | `{ "invoiceAmount": 2000 }`                                                          |
-| DELETE | `/api/invoices/:id`                | Delete an invoice by ID.                      | None                                                                                 |
-| GET    | `/api/invoices`                    | Retrieve all invoices.                        | None                                                                                 |
-| GET    | `/api/invoices?year=YYYY`          | Filter invoices by financial year.            | None                                                                                 |
-| GET    | `/api/invoices/search/:invoiceNumber` | Search invoices by invoice number.          | None                                                                                 |
+| POST   | `/api/invoices/create`            | Create a new invoice.                         | `{ "invoiceNumber": "INV001", "invoiceDate": "2024-12-01", "invoiceAmount": 1500, "financialYear": "2024-2025" }` |
+| PUT    | `/api/invoices/update/:id`        | Update an existing invoice by ID.             | `{ "invoiceAmount": 2000 }`                                                          |
+| DELETE | `/api/invoices/delete/:id`        | Delete an invoice by ID.                      | None                                                                                 |
+| GET    | `/api/invoices`                   | Retrieve all invoices.                        | None                                                                                 |
+| POST   | `/api/invoices/filter`            | Filter invoices by appltying filters.         | `{ "invoiceNumber": "INV001", "startDate": "2024-12-01", "endDate": "2024-12-01", "financialYear": "2024" }` |   
+| GET    | `/api/auth/check-time`            | Checks server time for validation             | None                                                                                 |
 
 ---
 
