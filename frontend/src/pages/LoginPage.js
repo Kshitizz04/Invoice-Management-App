@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 import { Box, Button, Typography } from '@mui/material';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const myWidth = window.innerWidth;
 let flexdir = myWidth < 650 ? 'column' :  'row';
@@ -14,7 +15,7 @@ const LoginPage = () => {
 
   const validate = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/auth/check-time');
+      const response = await axios.get(`${apiUrl}/api/auth/check-time`);
       const serverTime = new Date(response.data.serverTime);
       const clientTime = new Date();
 

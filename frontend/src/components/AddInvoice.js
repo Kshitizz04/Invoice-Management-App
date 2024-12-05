@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import axios from 'axios';
 import { Box, FormControl, Input, InputLabel, Typography } from '@mui/material';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Transition = React.forwardRef(function Transition(props,ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -36,7 +37,7 @@ const AddInvoice = ({setInvoices, invoices})=> {
   const handleAddInvoice = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/invoices/create', newInvoice);
+      const response = await axios.post(`${apiUrl}/api/invoices/create`, newInvoice);
       setInvoices([...invoices,response.data]);
       setNewInvoice({ invoiceDate: '', invoiceNumber: '', invoiceAmount: '' });
       setOpen(false);

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Box, Button, FormControl, Input, InputLabel, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import AddInvoice from '../components/AddInvoice';
 import UpdateInvoice from '../components/UpdateInvoice';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const MainContainer = styled(Box)({
   height: '90vh',
@@ -52,7 +53,7 @@ const Dashboard = () => {
 
   const fetchInvoices = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/invoices');
+      const response = await axios.get(`${apiUrl}/api/invoices`);
       setInvoices(response.data);
     } catch (error) {
       console.error('Error fetching invoices:', error);
@@ -62,7 +63,7 @@ const Dashboard = () => {
   const applyFilters = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/invoices/filter', filters);
+      const response = await axios.post(`${apiUrl}/api/invoices/filter`, filters);
       setInvoices(response.data);
     } catch (error) {
       console.error('Error applying filters:', error);
@@ -72,7 +73,7 @@ const Dashboard = () => {
   const handleDeleteInvoice = async (id) => {
     console.log(id)
     try {
-      await axios.delete(`http://localhost:5000/api/invoices/delete/${id}`);
+      await axios.delete(`${apiUrl}/api/invoices/delete/${id}`);
       setInvoices(invoices.filter(invoice => invoice.invoiceNumber !== id));
     } catch (err) {
       console.error('Failed to delete invoice.');

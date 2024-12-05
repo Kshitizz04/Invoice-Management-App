@@ -7,12 +7,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import axios from 'axios';
 import { Box,FormControl, Input, InputLabel, Typography } from '@mui/material';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Transition = React.forwardRef(function Transition(props,ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-const defaultDate = new Date().toISOString().split('T')[0]
 
 const UpdateInvoice = ({setInvoices, invoices, invoiceNumber, force, setForce})=> {
   const [open, setOpen] = React.useState(false);
@@ -35,7 +35,7 @@ const UpdateInvoice = ({setInvoices, invoices, invoiceNumber, force, setForce})=
   const handleUpdateInvoice = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.put(`http://localhost:5000/api/invoices/update/${invoiceNumber}`, updateInvoice);
+        const response = await axios.put(`${apiUrl}/api/invoices/update/${invoiceNumber}`, updateInvoice);
         setInvoices((prevState)=>
             prevState.map((invoice)=>
                 invoice.invoiceNumber === invoiceNumber ? response.data : invoice
