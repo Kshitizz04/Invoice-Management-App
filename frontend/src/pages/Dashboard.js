@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   const fetchInvoices = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/invoices`);
+      const response = await axios.get('https://invoice-management-app-2gbe.onrender.com/api/invoices');
       setInvoices(response.data);
     } catch (error) {
       console.error('Error fetching invoices:', error);
@@ -63,7 +63,7 @@ const Dashboard = () => {
   const applyFilters = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}/invoices/filter`, filters);
+      const response = await axios.post('https://invoice-management-app-2gbe.onrender.com/api/invoices/filter', filters);
       setInvoices(response.data);
     } catch (error) {
       console.error('Error applying filters:', error);
@@ -73,7 +73,7 @@ const Dashboard = () => {
   const handleDeleteInvoice = async (id) => {
     console.log(id)
     try {
-      await axios.delete(`${apiUrl}/invoices/delete/${id}`);
+      await axios.delete('https://invoice-management-app-2gbe.onrender.com/api/invoices/delete/${id}');
       setInvoices(invoices.filter(invoice => invoice.invoiceNumber !== id));
     } catch (err) {
       console.error('Failed to delete invoice.');

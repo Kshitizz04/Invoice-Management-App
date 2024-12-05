@@ -15,9 +15,11 @@ const LoginPage = () => {
 
   const validate = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/auth/check-time`);
+      const response = await axios.get('https://invoice-management-app-2gbe.onrender.com/api/auth/check-time');
       const serverTime = new Date(response.data.serverTime);
       const clientTime = new Date();
+
+      console.log(clientTime, serverTime);
 
       const timeDifference = Math.abs(clientTime - serverTime) / 1000; // Difference in seconds
 
