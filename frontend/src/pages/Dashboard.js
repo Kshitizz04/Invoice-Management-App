@@ -73,7 +73,7 @@ const Dashboard = () => {
   const handleDeleteInvoice = async (id) => {
     console.log(id)
     try {
-      await axios.delete('https://invoice-management-app-2gbe.onrender.com/api/invoices/delete/${id}');
+      await axios.delete(`https://invoice-management-app-2gbe.onrender.com/api/invoices/delete/${id}`);
       setInvoices(invoices.filter(invoice => invoice.invoiceNumber !== id));
     } catch (err) {
       console.error('Failed to delete invoice.');
