@@ -1,0 +1,32 @@
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.error {
+  color: red;
+}
+
+.dashboard form {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard th, .dashboard td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.dashboard th {
+  background-color: #f4f4f4;
+}
