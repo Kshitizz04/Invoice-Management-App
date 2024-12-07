@@ -38,7 +38,6 @@ const StyledInput = styled(Input)({
 
 const Dashboard = () => {
   const [invoices, setInvoices] = useState([]);
-  const [forceRerender, setForceRerender] = useState(false);
   const [filters, setFilters] = useState({
     financialYear: '',
     invoiceNumber: '',
@@ -71,7 +70,7 @@ const Dashboard = () => {
   };
 
   const handleDeleteInvoice = async (id) => {
-    console.log(id)
+    //console.log(id)
     try {
       await axios.delete(`https://invoice-management-app-2gbe.onrender.com/api/invoices/delete/${id}`);
       setInvoices(invoices.filter(invoice => invoice.invoiceNumber !== id));
@@ -140,7 +139,7 @@ const Dashboard = () => {
                   <StyledTableCell>{invoice.invoiceAmount}</StyledTableCell>
                   <StyledTableCell>{invoice.financialYear}</StyledTableCell>
                   <StyledTableCell>
-                    <UpdateInvoice invoices={invoices} setInvoices={setInvoices} invoiceNumber={invoice.invoiceNumber} force={forceRerender} setForce={setForceRerender}/>
+                    <UpdateInvoice setInvoices={setInvoices} invoiceNumber={invoice.invoiceNumber}/>
                     <Button variant='contained' onClick={(e)=>{handleDeleteInvoice(invoice.invoiceNumber)}} sx={{margin:'0 0 0 5px'}}>Delete</Button>
                   </StyledTableCell>
                 </TableRow>

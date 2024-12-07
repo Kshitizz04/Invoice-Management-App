@@ -13,14 +13,15 @@ const Transition = React.forwardRef(function Transition(props,ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
+const defaultDate = new Date().toISOString().split('T')[0]
 
-const UpdateInvoice = ({setInvoices, invoices, invoiceNumber, force, setForce})=> {
+const UpdateInvoice = ({setInvoices,invoiceNumber})=> {
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState("");
   const [updateInvoice, setUpdateInvoice] = useState({
-    invoiceDate: '',
+    invoiceDate: defaultDate,
     invoiceAmount: '',
-    financialYear: ''
+    financialYear: defaultDate.substring(0,4)
   });
 
   const handleClickOpen = () => {
@@ -28,24 +29,30 @@ const UpdateInvoice = ({setInvoices, invoices, invoiceNumber, force, setForce})=
   };
 
   const handleClose = () => {
+    setError("");
+    setUpdateInvoice({ invoiceDate: defaultDate, financialYear: defaultDate.substring(0,4), invoiceAmount: '' });
     setOpen(false);
   };
 
 
   const handleUpdateInvoice = async (e) => {
     e.preventDefault();
-    try {
-        const response = await axios.put(`https://invoice-management-app-2gbe.onrender.com/api/invoices/update/${invoiceNumber}`, updateInvoice);
-        setInvoices((prevState)=>
-            prevState.map((invoice)=>
-                invoice.invoiceNumber === invoiceNumber ? response.data : invoice
-            )
-        )
-        setUpdateInvoice({ invoiceDate: '', invoiceNumber: '', invoiceAmount: '' });
-        setForce(!force)
-        setOpen(false);
-    } catch (err) {
-      setError(`Failed to update invoice. ${err.message}`);
+    if(updateInvoice.invoiceAmount===''){
+      setError("Failed to add invoice. Some fields are missing")
+    }
+    else{
+      try {
+          const response = await axios.put(`https://invoice-management-app-2gbe.onrender.com/api/invoices/update/${invoiceNumber}`, updateInvoice);
+          setInvoices((prevState)=>
+              prevState.map((invoice)=>
+                  invoice.invoiceNumber === invoiceNumber ? response.data : invoice
+              )
+          )
+          setUpdateInvoice({ invoiceDate: defaultDate, financialYear: defaultDate.substring(0,4), invoiceAmount: '' });
+          handleClose();
+      } catch (err) {
+        setError(`Failed to update invoice. ${err.message}`);
+      }
     }
   };
 
@@ -72,12 +79,12 @@ const UpdateInvoice = ({setInvoices, invoices, invoiceNumber, force, setForce})=
                 <FormControl variant="standard">
                     <InputLabel shrink={true}>Invoice Date</InputLabel>
                     <Input  type='date'onChange={(e) => setUpdateInvoice({ ...updateInvoice, invoiceDate: e.target.value.substring(0,9), financialYear: e.target.value.substring(0,4) })}
-                    required />
+                    required value={new Date(updateInvoice.invoiceDate).toISOString().split('T')[0]}/>
                 </FormControl>
                 <FormControl variant="standard">
                     <InputLabel htmlFor="component-simple">Invoice Amount</InputLabel>
                     <Input id="component-simple" type='number'onChange={(e) => setUpdateInvoice({ ...updateInvoice, invoiceAmount: e.target.value })}
-                    required/>
+                    required value={updateInvoice.invoiceAmount}/>
                 </FormControl>
             </Box>
         </DialogContent>

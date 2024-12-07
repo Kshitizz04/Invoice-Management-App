@@ -20,9 +20,9 @@ const AddInvoice = ({setInvoices, invoices})=> {
   const [error, setError] = React.useState("");
   const [newInvoice, setNewInvoice] = useState({
     invoiceNumber: '',
-    invoiceDate: '',
+    invoiceDate: defaultDate,
     invoiceAmount: '',
-    financialYear: ''
+    financialYear: defaultDate.substring(0,4)
   });
 
   const handleClickOpen = () => {
@@ -30,19 +30,26 @@ const AddInvoice = ({setInvoices, invoices})=> {
   };
 
   const handleClose = () => {
+    setError("");
+    setNewInvoice({ invoiceDate: defaultDate, invoiceNumber: '', invoiceAmount: '' , financialYear: defaultDate.substring(0,4)});
     setOpen(false);
   };
 
 
   const handleAddInvoice = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('https://invoice-management-app-2gbe.onrender.com/api/invoices/create', newInvoice);
-      setInvoices([...invoices,response.data]);
-      setNewInvoice({ invoiceDate: '', invoiceNumber: '', invoiceAmount: '' });
-      setOpen(false);
-    } catch (err) {
-      setError(`Failed to add invoice. ${err.message}`);
+    if(newInvoice.invoiceNumber===''|| newInvoice.invoiceAmount===''){
+      setError("Failed to add invoice. Some fields are missing")
+    }
+    else{
+      try {
+        const response = await axios.post('https://invoice-management-app-2gbe.onrender.com/api/invoices/create', newInvoice);
+        setInvoices([...invoices,response.data]);
+        setNewInvoice({ invoiceDate: defaultDate, invoiceNumber: '', invoiceAmount: '' , financialYear: defaultDate.substring(0,4)});
+        handleClose();
+      } catch (err) {
+        setError(`Failed to add invoice. ${err.response.data.message}`);
+      }
     }
   };
 
@@ -69,17 +76,17 @@ const AddInvoice = ({setInvoices, invoices})=> {
                 <FormControl variant="standard">
                     <InputLabel htmlFor="component-simple">Invoice Number</InputLabel>
                     <Input id="component-simple" type='number'onChange={(e) => setNewInvoice({ ...newInvoice, invoiceNumber: e.target.value })}
-                    required/>
+                    required value={newInvoice.invoiceNumber}/>
                 </FormControl>
                 <FormControl variant="standard">
                     <InputLabel shrink={true}>Invoice Date</InputLabel>
                     <Input  type='date'onChange={(e) => setNewInvoice({ ...newInvoice, invoiceDate: e.target.value.substring(0,9), financialYear: e.target.value.substring(0,4) })}
-                    required/>
+                    required value={new Date(newInvoice.invoiceDate).toISOString().split('T')[0]}/>
                 </FormControl>
                 <FormControl variant="standard">
                     <InputLabel htmlFor="component-simple">Invoice Amount</InputLabel>
                     <Input id="component-simple" type='number'onChange={(e) => setNewInvoice({ ...newInvoice, invoiceAmount: e.target.value })}
-                    required/>
+                    required value={newInvoice.invoiceAmount}/>
                 </FormControl>
             </Box>
         </DialogContent>

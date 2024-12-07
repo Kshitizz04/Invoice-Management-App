@@ -23,7 +23,12 @@ code {
   border-radius: 10px;
 }
 .css-qgfj2i-MuiTableContainer-root::-webkit-scrollbar-thumb {
-  width: 10px;
+  width: 9px;
   background:rgba(38, 28, 92, .5);
+  border-radius: 10px;
+}
+.css-qgfj2i-MuiTableContainer-root::-webkit-scrollbar-track {
+  width: 10px;
+  background:rgba(38, 28, 92, .6);
   border-radius: 10px;
 }

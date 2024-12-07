@@ -58,7 +58,7 @@ invoice-management/
 ├── backend/
 │   ├── models/
 │   ├── routes/
-│   ├── tests/
+│   ├── controllers/
 │   ├── server.js
 │   └── package.json
 ├── frontend/
