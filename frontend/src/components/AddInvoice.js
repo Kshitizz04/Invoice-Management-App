@@ -80,8 +80,8 @@ const AddInvoice = ({setInvoices, invoices})=> {
                 </FormControl>
                 <FormControl variant="standard">
                     <InputLabel shrink={true}>Invoice Date</InputLabel>
-                    <Input  type='date'onChange={(e) => setNewInvoice({ ...newInvoice, invoiceDate: e.target.value.substring(0,9), financialYear: e.target.value.substring(0,4) })}
-                    required value={new Date(newInvoice.invoiceDate).toISOString().split('T')[0]}/>
+                    <Input  type='date'onChange={(e) => {setNewInvoice({ ...newInvoice, invoiceDate: new Date(e.target.value).toISOString().split('T')[0], financialYear: e.target.value.substring(0,4) })}}
+                    required value={newInvoice.invoiceDate}/>
                 </FormControl>
                 <FormControl variant="standard">
                     <InputLabel htmlFor="component-simple">Invoice Amount</InputLabel>
